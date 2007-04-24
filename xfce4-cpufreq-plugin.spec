@@ -1,4 +1,5 @@
 Summary:	A cpufreq plugin for the Xfce panel
+Summary(pl.UTF-8):	Wtyczka cpufreq dla panelu Xfce
 Name:		xfce4-cpufreq-plugin
 Version:	0.0.1
 Release:	1
@@ -23,6 +24,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This plugin displays the current frequency of the CPU, in GHz or MHz
 as necessary. It also displays the frequency relative to the maximum
 CPU frequency as an accordingly colored progress bar.
+
+%description -l pl.UTF-8
+Ta wtyczka wyświetla aktualną częstotliwość procesora w GHz lub MHz.
+Wyświetla także częstotliwość względem maksymalnej częstotliwości
+procesora jako odpowiednio pokolorowany pasek.
 
 %prep
 %setup -q -n xfce4-cpu-freq-plugin-%{version}
