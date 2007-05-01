@@ -10,7 +10,7 @@ Source0:	http://goodies.xfce.org/releases/xfce4-cpufreq-plugin/%{name}-%{version
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-cpufreq-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	intltool >= 0.35.5
+BuildRequires:	intltool >= 0.35.0
 BuildRequires:	libtool
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	xfce4-dev-tools >= 4.4.0
@@ -26,8 +26,8 @@ as necessary. It also displays the frequency relative to the maximum
 CPU frequency as an accordingly colored progress bar.
 
 %description -l pl.UTF-8
-Ta wtyczka wyÅ›wietla aktualnÄ… czÄ™stotliwoÅ›Ä‡ procesora w GHz lub MHz.
-WyÅ›wietla takÅ¼e czÄ™stotliwoÅ›Ä‡ wzglÄ™dem maksymalnej czÄ™stotliwoÅ›ci
+Ta wtyczka wy¶wietla aktualn± czêstotliwo¶æ procesora w GHz lub MHz.
+Wy¶wietla tak¿e czêstotliwo¶æ wzglêdem maksymalnej czêstotliwo¶ci
 procesora jako odpowiednio pokolorowany pasek.
 
 %prep
