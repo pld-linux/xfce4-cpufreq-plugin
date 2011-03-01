@@ -1,0 +1,118 @@
+diff -ur xfce4-cpufreq-plugin-1.0.0-orig/configure.ac xfce4-cpufreq-plugin-1.0.0/configure.ac
+--- xfce4-cpufreq-plugin-1.0.0-orig/configure.ac	2011-01-23 10:32:40.000000000 +0100
++++ xfce4-cpufreq-plugin-1.0.0/configure.ac	2011-03-01 12:34:20.130889238 +0100
+@@ -36,7 +36,7 @@
+ XDT_CHECK_PACKAGE([GTHREAD], [gthread-2.0], [2.6.0])
+ XDT_CHECK_PACKAGE([GTK], [gtk+-2.0], [2.6.0])
+ XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.3.90])
+-XDT_CHECK_PACKAGE([LIBXFCEGUI4], [libxfcegui4-1.0], [4.3.90])
++XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-1], [4.8.0])
+ XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.3.90])
+ 
+ AC_OUTPUT([
+diff -ur xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/Makefile.am xfce4-cpufreq-plugin-1.0.0/panel-plugin/Makefile.am
+--- xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/Makefile.am	2010-12-28 11:10:04.000000000 +0100
++++ xfce4-cpufreq-plugin-1.0.0/panel-plugin/Makefile.am	2011-03-01 12:34:20.130889238 +0100
+@@ -5,13 +5,13 @@
+ 	-I$(top_srcdir)						\
+ 	@LIBXFCE4PANEL_CFLAGS@					\
+ 	@LIBXFCE4UTIL_CFLAGS@					\
+-	@LIBXFCEGUI4_CFLAGS@					\
++	@LIBXFCE4UI_CFLAGS@					\
+ 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"
+ 
+ xfce4_cpufreq_plugin_LDADD =					\
+ 	@LIBXFCE4PANEL_LIBS@					\
+ 	@LIBXFCE4UTIL_LIBS@					\
+-	@LIBXFCEGUI4_LIBS@
++	@LIBXFCE4UI_LIBS@
+ 
+ xfce4_cpufreq_plugin_SOURCES =					\
+ 	xfce4-cpufreq-plugin.h					\
+diff -ur xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-configure.c xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-configure.c
+--- xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-configure.c	2011-01-23 02:03:32.000000000 +0100
++++ xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-configure.c	2011-03-01 12:34:20.134889238 +0100
+@@ -23,7 +23,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <libxfcegui4/libxfcegui4.h>
++#include <libxfce4ui/libxfce4ui.h>
+ #include "xfce4-cpufreq-plugin.h"
+ #include "xfce4-cpufreq-configure.h"
+ 
+diff -ur xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-linux.c xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-linux.c
+--- xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-linux.c	2011-01-22 13:03:42.000000000 +0100
++++ xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-linux.c	2011-03-01 12:35:41.434889238 +0100
+@@ -27,7 +27,7 @@
+ #include "xfce4-cpufreq-plugin.h"
+ #include "xfce4-cpufreq-linux.h"
+ 
+-#include <libxfcegui4/libxfcegui4.h>
++#include <libxfce4ui/libxfce4ui.h>
+ 
+ #ifndef _
+ # include <libintl.h>
+@@ -410,7 +410,7 @@
+ 	{
+ 		if (cpuFreq->options->show_warning)
+ 		{
+-			xfce_warn (_("Your system does not support cpufreq.\nThe applet only shows the current cpu frequency"));
++			xfce_dialog_show_warning(NULL, NULL, _("Your system does not support cpufreq.\nThe applet only shows the current cpu frequency"));
+ 			cpuFreq->options->show_warning = FALSE;
+ 		}
+ 
+diff -ur xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-overview.c xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-overview.c
+--- xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-overview.c	2011-01-23 02:04:04.000000000 +0100
++++ xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-overview.c	2011-03-01 12:34:20.136889238 +0100
+@@ -23,7 +23,7 @@
+ #include <config.h>
+ #endif
+ 
+-#include <libxfcegui4/libxfcegui4.h>
++#include <libxfce4ui/libxfce4ui.h>
+ #ifndef _
+ # include <libintl.h>
+ # define _(String) gettext (String)
+diff -ur xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-plugin.c xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-plugin.c
+--- xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-plugin.c	2011-01-23 02:04:33.000000000 +0100
++++ xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-plugin.c	2011-03-01 12:36:10.429889238 +0100
+@@ -26,7 +26,7 @@
+ #endif
+ 
+ #include <libxfce4util/libxfce4util.h>
+-#include <libxfcegui4/libxfcegui4.h>
++#include <libxfce4ui/libxfce4ui.h>
+ #ifndef _
+ # include <libintl.h>
+ # define _(String) gettext (String)
+@@ -329,7 +329,7 @@
+ 
+ #ifdef __linux__
+ 	if (cpufreq_linux_init () == FALSE)
+-		xfce_err (_("Your system is not configured correctly to support cpu frequency scaling !"));
++		xfce_dialog_show_error (NULL, NULL, _("Your system is not configured correctly to support cpu frequency scaling !"));
+ 
+ 	gtk_widget_set_size_request (GTK_WIDGET (plugin), -1, -1);
+ 	cpufreq_widgets ();
+@@ -339,7 +339,7 @@
+ 			(GSourceFunc) cpufreq_update_cpus,
+ 			NULL);
+ #else
+-	xfce_err (_("Your system is not supported yet !"));
++	xfce_dialog_show_error (NULL, NULL, _("Your system is not supported yet !"));
+ #endif /* __linux__ */
+ 
+ 	g_signal_connect (plugin, "free-data", G_CALLBACK (cpufreq_free),
+diff -ur xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-plugin.h xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-plugin.h
+--- xfce4-cpufreq-plugin-1.0.0-orig/panel-plugin/xfce4-cpufreq-plugin.h	2011-01-22 13:04:29.000000000 +0100
++++ xfce4-cpufreq-plugin-1.0.0/panel-plugin/xfce4-cpufreq-plugin.h	2011-03-01 12:34:20.138889238 +0100
+@@ -22,7 +22,7 @@
+ #define XFCE4_CPUFREQ_H
+ 
+ #include <gtk/gtk.h>
+-#include <libxfce4panel/xfce-panel-plugin.h>
++#include <libxfce4panel/libxfce4panel.h>
+ 
+ typedef struct
+ {
