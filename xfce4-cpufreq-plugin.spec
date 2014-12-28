@@ -10,7 +10,7 @@ Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-cpufreq-plugin/1.1/%{na
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-cpufreq-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	intltool >= 0.35.5
 BuildRequires:	libtool
 BuildRequires:	libxfce4ui-devel
