@@ -2,11 +2,12 @@ Summary:	A cpufreq plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka cpufreq dla panelu Xfce
 Name:		xfce4-cpufreq-plugin
 Version:	1.1.1
-Release:	1
+Release:	1.2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-cpufreq-plugin/1.1/%{name}-%{version}.tar.bz2
 # Source0-md5:	cc3447ee6663f2946fce86308ba3566b
+Patch0:		no-freq-in-proc-cpuinfo.patch
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-cpufreq-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -34,6 +35,7 @@ procesora jako odpowiednio pokolorowany pasek.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}

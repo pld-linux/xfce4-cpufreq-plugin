@@ -1,0 +1,85 @@
+--- xfce4-cpufreq-plugin-1.1.1/panel-plugin/xfce4-cpufreq-linux.c~	2014-12-22 18:50:31.000000000 +0100
++++ xfce4-cpufreq-plugin-1.1.1/panel-plugin/xfce4-cpufreq-linux.c	2018-01-06 13:32:33.608960079 +0100
+@@ -108,14 +108,12 @@
+ 	}
+ 
+ 	/* read available cpu freqs */
+-	if (cpuFreq->intel_pstate == NULL) {
+ 		file =
+ 			g_strdup_printf ("/sys/devices/system/cpu/cpu%i/"
+ 							 "cpufreq/scaling_available_frequencies",
+ 							 cpu_number);
+ 		SYSFS_READ_INT_LIST (file, contents, cpu->available_freqs);
+ 		g_free (file);
+-	}
+ 
+ 	/* read available cpu governors */
+ 	file = g_strdup_printf (
+@@ -132,14 +132,12 @@
+ 	g_free (file);
+ 
+ 	/* read current cpu freq */
+-	if (cpuFreq->intel_pstate == NULL) {
+ 		file =
+ 			g_strdup_printf ("/sys/devices/system/cpu/cpu%i/"
+ 							 "cpufreq/scaling_cur_freq",
+ 							 cpu_number);
+ 		SYSFS_READ_INT (file, contents, cpu->cur_freq);
+ 		g_free (file);
+-	}
+ 
+ 	/* read current cpu governor */
+ 	file = g_strdup_printf (
+@@ -173,14 +171,12 @@
+ 	cpu = g_ptr_array_index (cpuFreq->cpus, cpu_number);
+ 
+ 	/* read current cpu freq */
+-	if (cpuFreq->intel_pstate == NULL) {
+ 		file =
+ 			g_strdup_printf ("/sys/devices/system/cpu/cpu%i/"
+ 							 "cpufreq/scaling_cur_freq",
+ 							 cpu_number);
+ 		SYSFS_READ_INT (file, contents, cpu->cur_freq);
+ 		g_free (file);
+-	}
+ 
+ 	/* read current cpu governor */
+ 	file = g_strdup_printf ("/sys/devices/system/cpu/cpu%i/"
+@@ -398,18 +396,7 @@
+ 	if (!cpufreq_intel_pstate_params ())
+ 		return FALSE;
+ 
+-	/* Read /proc/cpuinfo, that's where intel pstate stores
+-	   the "current frequencies" that are readable by
+-	   unprivileged users. */
+-	if (!cpufreq_cpu_read_procfs_cpuinfo ())
+-		return FALSE;
+-
+-	/* now read the remaining cpufreq info for each cpu from sysfs */
+-	for (i = 0; i < cpuFreq->cpus->len; i++) {
+-		cpu = g_ptr_array_index (cpuFreq->cpus, i);
+-		cpufreq_cpu_parse_sysfs_init (i, cpu);
+-	}
+-	return TRUE;
++	return cpufreq_cpu_read_sysfs ();
+ }
+ 
+ gboolean
+@@ -417,16 +404,7 @@
+ {
+ 	gint i;
+ 
+-	if (g_file_test ("/sys/devices/system/cpu/intel_pstate", G_FILE_TEST_EXISTS))
+-	{
+-		/* read current cpu frequencies from /proc/cpuinfo */
+-		cpufreq_cpu_read_procfs_cpuinfo ();
+-
+-		/* read current scaling governor from sysfs */
+-		for (i = 0; i < cpuFreq->cpus->len; i++)
+-			cpufreq_cpu_read_sysfs_current (i);
+-	}
+-	else if (g_file_test ("/sys/devices/system/cpu/cpu0/cpufreq",
++	if (g_file_test ("/sys/devices/system/cpu/cpu0/cpufreq",
+ 						  G_FILE_TEST_EXISTS))
+ 	{
+ 		for (i = 0; i < cpuFreq->cpus->len; i++)
