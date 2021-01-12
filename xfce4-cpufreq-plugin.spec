@@ -1,12 +1,12 @@
 Summary:	A cpufreq plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka cpufreq dla panelu Xfce
 Name:		xfce4-cpufreq-plugin
-Version:	1.2.2
+Version:	1.2.3
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-cpufreq-plugin/1.2/%{name}-%{version}.tar.bz2
-# Source0-md5:	706ed7954682ee4de3cc9f0e73ae7ef6
+# Source0-md5:	5a29db286eb78c37697088160df54f8b
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-cpufreq-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
