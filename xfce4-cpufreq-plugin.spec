@@ -1,25 +1,26 @@
 Summary:	A cpufreq plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka cpufreq dla panelu Xfce
 Name:		xfce4-cpufreq-plugin
-Version:	1.2.7
+Version:	1.2.8
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-cpufreq-plugin/1.2/%{name}-%{version}.tar.bz2
-# Source0-md5:	ea87da45feed6edb342f0e7ede77edbc
+# Source0-md5:	c4c916aa85b0ba4583115ee3d54ed14c
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-cpufreq-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-tools
 BuildRequires:	intltool >= 0.35.5
 BuildRequires:	libtool
-BuildRequires:	libxfce4ui-devel
-BuildRequires:	rpmbuild(macros) >= 1.601
-BuildRequires:	xfce4-dev-tools >= 4.14.0
-BuildRequires:	xfce4-panel-devel >= 4.14.0
+BuildRequires:	libxfce4ui-devel >= 4.16.0
+BuildRequires:	xfce4-panel-devel >= 4.16.0
+BuildRequires:	libxfce4util-devel >= 4.17.2
+BuildRequires:	rpmbuild(macros) >= 2.000
+BuildRequires:	xfce4-dev-tools >= 4.17.0
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
-Requires:	xfce4-panel >= 4.14.0
+Requires:	xfce4-panel >= 4.16.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
