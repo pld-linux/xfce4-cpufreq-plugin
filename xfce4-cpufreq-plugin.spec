@@ -1,19 +1,20 @@
 Summary:	A cpufreq plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka cpufreq dla panelu Xfce
 Name:		xfce4-cpufreq-plugin
-Version:	1.2.9
+Version:	1.3.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	https://archive.xfce.org/src/panel-plugins/xfce4-cpufreq-plugin/1.2/%{name}-%{version}.tar.bz2
-# Source0-md5:	86743f27fa5b8872ab433e26b2a63412
+Source0:	https://archive.xfce.org/src/panel-plugins/xfce4-cpufreq-plugin/1.3/%{name}-%{version}.tar.xz
+# Source0-md5:	5fadf039add3819180fd076318584ccc
 URL:		https://goodies.xfce.org/projects/panel-plugins/xfce4-cpufreq-plugin
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRequires:	gettext-tools
-BuildRequires:	libtool
+BuildRequires:	glib2-devel >= 1:2.50.0
+BuildRequires:	gtk+3-devel >= 3.22.0
 BuildRequires:	libxfce4ui-devel >= 4.16.0
 BuildRequires:	libxfce4util-devel >= 4.17.2
+BuildRequires:	meson >= 0.54.0
+BuildRequires:	ninja
 BuildRequires:	rpmbuild(macros) >= 2.000
 BuildRequires:	xfce4-dev-tools >= 4.17.2
 BuildRequires:	xfce4-panel-devel >= 4.16.0
@@ -36,22 +37,15 @@ procesora jako odpowiednio pokolorowany pasek.
 %setup -q
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure
-%{__make}
+%meson
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%meson_install
 
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{hy_AM,hye,ie,ur_PK}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/xfce4/panel/plugins/libcpufreq.la
 
 %find_lang %{name}
 
@@ -66,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README.md
+%doc AUTHORS NEWS README.md
 %attr(755,root,root) %{_libdir}/xfce4/panel/plugins/libcpufreq.so*
 %{_datadir}/xfce4/panel/plugins/cpufreq.desktop
 %{_iconsdir}/hicolor/*/*/*.png
