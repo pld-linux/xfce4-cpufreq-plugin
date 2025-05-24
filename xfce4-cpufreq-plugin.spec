@@ -14,8 +14,8 @@ BuildRequires:	gtk+3-devel >= 3.22.0
 BuildRequires:	libxfce4ui-devel >= 4.16.0
 BuildRequires:	libxfce4util-devel >= 4.17.2
 BuildRequires:	meson >= 0.54.0
-BuildRequires:	ninja
-BuildRequires:	rpmbuild(macros) >= 2.000
+BuildRequires:	ninja >= 1.5
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	xfce4-dev-tools >= 4.17.2
 BuildRequires:	xfce4-panel-devel >= 4.16.0
 Requires:	gtk-update-icon-cache
@@ -38,6 +38,7 @@ procesora jako odpowiednio pokolorowany pasek.
 
 %build
 %meson
+
 %meson_build
 
 %install
